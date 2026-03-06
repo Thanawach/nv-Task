@@ -2,15 +2,23 @@
   <div>
     <h2>Get all blogs</h2>
     <p><button v-on:click="logout">Logout</button></p>
+
     <h4>จำนวน blog {{ blogs.length }}</h4>
-    <p><button v-on:click="navigateTo('/blog/create')">สร้าง blog</button></p>
+
+    <p>
+      <button v-on:click="navigateTo('/blog/create')">สร้าง blog</button>
+    </p>
     
     <div v-for="blog in blogs" v-bind:key="blog.id">
       <p>id: {{ blog.id }}</p>
       <p>title: {{ blog.title }}</p>
-      <p>content: {{ blog.content }}</p>
+
+      <!-- แสดง HTML จาก editor -->
+      <div v-html="blog.content"></div>
+
       <p>category: {{ blog.category }}</p>
       <p>status: {{ blog.status }}</p>
+
       <p>
         <button v-on:click="navigateTo('/blog/'+ blog.id)">ดู blog</button>
         <button v-on:click="navigateTo('/blog/edit/'+ blog.id)">แก้ไข blog</button>
@@ -30,10 +38,11 @@ export default {
       blogs: []
     }
   },
+
   async created () {
-    // เรียกใช้ Service เพื่อดึงข้อมูลเมื่อ Component ถูกโหลด [6]
     this.blogs = (await BlogsService.index()).data
   },
+
   methods: {
     logout () {
       this.$store.dispatch('setToken', null)
@@ -42,8 +51,9 @@ export default {
         name: 'login'
       })
     },
+
     navigateTo (route) {
-      this.$router.push(route) // สั่งเปลี่ยนหน้าด้วย Vue Router [5]
+      this.$router.push(route)
     },
     
     async deleteBlog (blog) {
@@ -57,11 +67,13 @@ export default {
         }
       }
     },
-    async refreshData() {
+
+    async refreshData () {
       this.blogs = (await BlogsService.index()).data
     }
   }
 }
 </script>
+
 <style scoped>
 </style>

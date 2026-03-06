@@ -10,6 +10,10 @@ import BlogCreate from '../components/Blogs/CreateBlog.vue'
 import BlogEdit from '../components/Blogs/EditBlog.vue'
 import BlogShow from '../components/Blogs/ShowBlog.vue'
 
+import BookIndex from '../components/Books/Index.vue'
+import BookCreate from '../components/Books/CreateBook.vue'
+import BookEdit from '../components/Books/EditBook.vue'
+import BookShow from '../components/Books/ShowBook.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,6 +68,26 @@ const router = createRouter({
       name: 'blog',
       component: BlogShow
     },
+    {
+      path: '/books',
+      name: 'books',
+      component: BookIndex
+    },
+    {
+      path: '/book/create',
+      name: 'book-create',
+      component: BookCreate
+    },
+    {
+      path: '/book/edit/:bookId',
+      name: 'book-edit',
+      component: BookEdit
+    },
+    {
+      path: '/book/:bookId',
+      name: 'book',
+      component: BookShow
+    }
   ]
 })
 
